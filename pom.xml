@@ -2,12 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.sys.parent</groupId>
-		<artifactId>sys-parent</artifactId>
-		<version>dev-0.0.1-SNAPSHOT</version>
-	</parent>
 
+	<groupId>com.sys.parent</groupId>
 	<artifactId>demo</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
@@ -25,7 +21,63 @@
 		<maven.test.skip>true</maven.test.skip>
 		<acms.version>1.0.1</acms.version>
 		<common-ybd.version>1.0-SNAPSHOT</common-ybd.version>
+		<compiler.version>1.8</compiler.version>
 
+
+
+
+		<compiler.version>1.8</compiler.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- 环境变量 -->
+		<JAVA_ENV>dev</JAVA_ENV>
+		<!-- zhongying old interface -->
+		<zhongying-interface.version>1.0-SNAPSHOT</zhongying-interface.version>
+		<!-- zhongying framework -->
+		<framework.version>${JAVA_ENV}-1.0-SNAPSHOT</framework.version>
+		<tx-lcn.version>0.0.1-SNAPSHOT</tx-lcn.version>
+
+		<tx-lcn-4.version>4.0.3.SNAPSHOT</tx-lcn-4.version>
+		<!-- <tx-lcn-4.version>4.0.2</tx-lcn-4.version>-->
+		<!-- 服务-facade begin -->
+		<account-interface-version>${JAVA_ENV}-1.0-SNAPSHOT</account-interface-version>
+		<activity-interface-version>${JAVA_ENV}-1.0-SNAPSHOT</activity-interface-version>
+		<bank-interface-version>${JAVA_ENV}-1.0-SNAPSHOT</bank-interface-version>
+		<order-facade.version>dev-0.0.1-SNAPSHOT</order-facade.version>
+		<from-interface-version>${JAVA_ENV}-1.0-SNAPSHOT</from-interface-version>
+		<fiance-interface-version>${JAVA_ENV}-1.0-SNAPSHOT</fiance-interface-version>
+		<public-interface-version>${JAVA_ENV}-1.0-SNAPSHOT</public-interface-version>
+		<bi-interface-version>${JAVA_ENV}-1.0-SNAPSHOT</bi-interface-version>
+		<wdzj-interface-version>${JAVA_ENV}-1.0-SNAPSHOT</wdzj-interface-version>
+		<openlab-facade.version>dev-0.0.1-SNAPSHOT</openlab-facade.version>
+		<bi-facade.version>dev-0.0.1-SNAPSHOT</bi-facade.version>
+		<!-- 服务-facade end -->
+
+		<!-- java depandicy -->
+		<!-- spring -->
+		<org.springframework.version>4.2.5.RELEASE</org.springframework.version>
+		<!--
+        <spring-data-redis.version>2.0.1.RELEASE</spring-data-redis.version> -->
+		<spring-data-redis.version>1.8.8.RELEASE</spring-data-redis.version>
+		<mybatis.version>3.4.5</mybatis.version>
+		<!-- dubbo -->
+		<!--
+        <dubbo.version>2.5.3</dubbo.version>-->
+		<dubbo.version>dev-2.5.7-SNAPSHOT</dubbo.version>
+		<!-- 短信 -->
+		<com.alibaba.sms.version>1.0.0</com.alibaba.sms.version>
+		<!-- ping++ 支付 -->
+		<pingpp-java.version>2.1.1</pingpp-java.version>
+		<!-- jpush -->
+		<jpush-client.version>3.2.7</jpush-client.version>
+		<!-- influxdb -->
+		<influxdb.version>2.3</influxdb.version>
+		<okhttp3.version>3.7.0</okhttp3.version>
+		<guava.version>19.0</guava.version>
+		<!-- 2017-10-26 -->
+		<jackson.version>2.9.2</jackson.version>
+		<javax.validation.version>1.1.0.Final</javax.validation.version>
+		<slf4j.version>1.7.5</slf4j.version>
+		<junit4.version>4.12</junit4.version>
 	</properties>
 
 	<dependencies>
@@ -33,11 +85,13 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+            <version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
+            <version>${org.springframework.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -60,19 +114,6 @@
 		</repository>-->
 	</repositories>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>nexus</id>
-			<name>nexus</name>
-			<url>http://192.168.6.75:8081/nexus/content/groups/public/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
 	<build>
 
 		<plugins>
@@ -152,6 +193,7 @@
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
 				<configuration>
 					<port>8080</port>
 					<path>/${project.build.targetName}</path>
