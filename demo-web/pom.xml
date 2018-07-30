@@ -12,11 +12,11 @@
 
 	<dependencies>
 
-		<dependency>
+		<!--<dependency>
 			<groupId>io.github.hengyunabc.xdiamond</groupId>
 			<artifactId>xdiamond-client</artifactId>
 			<version>1.0.4</version>
-		</dependency>
+		</dependency>-->
 
 
 		<dependency>
@@ -34,8 +34,8 @@
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
 
