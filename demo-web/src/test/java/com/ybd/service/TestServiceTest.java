@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import com.zhongying.demo.dao.UserMapper;
+import com.zhongying.demo.service.BaseService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,6 +54,9 @@ public class TestServiceTest {
 	@Autowired
 	private UserMapper userMapper;
 
+	@Autowired
+	private BaseService baseService;
+
 	@Test
 	public void testPager() {
 		Page<?> page = PageHelper.startPage(1, 2); // 核心分页代码
@@ -61,11 +65,16 @@ public class TestServiceTest {
 		// xxx,只对简单SQL语句其效果，复杂SQL语句需要自己写）
 		// PageHelper.startPage(1,0); //查询所有数据
 		// List<?> list = demoService.selectAll(); //查询请求列表数据
-		List<?> list = userMapper.selectAll();
+		/*List<?> list = userMapper.selectAll();
 		long count = page.getTotal();
-		logger.info("count:" + count);
+		logger.info("count:" + count);*/
 		// List<AreaBranches> list = areaMapper.selectProvinces();
-		logger.info("list:" + list.size() + "data:"
-				+ JSONArray.toJSONString(list));
+
+        baseService.changeDataSourceA();
+
+        baseService.changeDataSourceB();
+
+		/*logger.info("list:" + list.size() + "data:"
+				+ JSONArray.toJSONString(list));*/
 	}
 }

@@ -9,9 +9,9 @@
 	<context:property-placeholder location="classpath*:config/context.properties"/>
 
 	<!-- 1. 数据源 : DriverManagerDataSource -->
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+	<bean id="dataSourceA" class="com.alibaba.druid.pool.DruidDataSource">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
-		<property name="url" value="${jdbc.url}" />
+		<property name="url" value="${jdbc.url1}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 		<property name="initialSize" value="10" />
@@ -41,6 +41,88 @@
 			<property name="logAbandoned" value="true"></property> -->
 		<!-- 配置监控统计拦截的filters -->
 		<property name="filters" value="stat" />
+	</bean>
+
+	<bean id="dataSourceB" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url2}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="10" />
+		<!-- 连接池支持的最大连接数 -->
+		<property name="maxActive" value="100" />
+		<!-- 连接池中最多可空闲maxIdle个连接 已经不再使用，配置了也没效果 -->
+		<!-- <property name="maxIdle" value="50" /> -->
+		<!-- 连接池中最少空闲maxIdle个连接 -->
+		<property name="minIdle" value="10" />
+		<!-- 配置获取连接等待超时的时间 ,毫秒 -->
+		<property name="maxWait" value="60000" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="1800000" />
+		<property name="validationQuery" value="SELECT 1" />
+		<!-- testWhileIdle -->
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 mysql default false -->
+		<!-- <property name="poolPreparedStatements" value="false" /> <property
+			name="maxPoolPreparedStatementPerConnectionSize" value="20" /> -->
+		<!-- 自动清除无用连接 -->
+		<!-- 配置removeAbandoned对性能会有一些影响，建议怀疑存在泄漏之后再打开。 <property name="removeAbandoned"
+			value="true"></property> <property name="removeAbandonedTimeout" value="1800"></property>
+			<property name="logAbandoned" value="true"></property> -->
+		<!-- 配置监控统计拦截的filters -->
+		<property name="filters" value="stat" />
+	</bean>
+
+	<bean id="dataSourceC" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url3}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="10" />
+		<!-- 连接池支持的最大连接数 -->
+		<property name="maxActive" value="100" />
+		<!-- 连接池中最多可空闲maxIdle个连接 已经不再使用，配置了也没效果 -->
+		<!-- <property name="maxIdle" value="50" /> -->
+		<!-- 连接池中最少空闲maxIdle个连接 -->
+		<property name="minIdle" value="10" />
+		<!-- 配置获取连接等待超时的时间 ,毫秒 -->
+		<property name="maxWait" value="60000" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="1800000" />
+		<property name="validationQuery" value="SELECT 1" />
+		<!-- testWhileIdle -->
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 mysql default false -->
+		<!-- <property name="poolPreparedStatements" value="false" /> <property
+			name="maxPoolPreparedStatementPerConnectionSize" value="20" /> -->
+		<!-- 自动清除无用连接 -->
+		<!-- 配置removeAbandoned对性能会有一些影响，建议怀疑存在泄漏之后再打开。 <property name="removeAbandoned"
+			value="true"></property> <property name="removeAbandonedTimeout" value="1800"></property>
+			<property name="logAbandoned" value="true"></property> -->
+		<!-- 配置监控统计拦截的filters -->
+		<property name="filters" value="stat" />
+	</bean>
+
+
+	<!-- 多数据源配置 -->
+	<bean id="dataSource" class="com.zhongying.demo.util.datasource.DynamicDataSource">
+		<!-- 默认使用dataSourceA的数据源 -->
+		<property name="defaultTargetDataSource" ref="dataSourceA"></property>
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry value-ref="dataSourceA" key="dataSourceA"></entry>
+				<entry value-ref="dataSourceB" key="dataSourceB"></entry>
+				<entry value-ref="dataSourceC" key="dataSourceC"></entry>
+			</map>
+		</property>
 	</bean>
 
 	<!-- 配置druid监控spring jdbc -->
